@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:local ="clr-namespace:ExamenMascotasJavierChris"
+             xmlns:converter="clr-namespace:ExamenMascotasJavierChris.Converters" 
+             xmlns:viewmodels="clr-namespace:ExamenMascotasJavierChris.ViewModels"
+             x:Class="ExamenMascotasJavierChris.Views.PetsView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ImageConverter x:Key="ImageConverter"/>
+            <converter:DateToAgeConverter x:Key="DateConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <FlexLayout
+                Direction="Row" 
+                BindableLayout.ItemsSource="{Binding Pets}"
+                AlignContent="Start"
+                Wrap="Wrap"
+                Margin="5, 5"
+                JustifyContent="SpaceEvenly">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            CornerRadius="8"
+                            HeightRequest="200" 
+                            WidthRequest="160" 
+                            Padding="2" 
+                            Margin="2" 
+                            x:Name="{Binding ID}" 
+                            ClassId="{Binding ID}">
+                            <Frame.BackgroundColor>
+                                <Color>
+                                    #c0a0db
+                                </Color>
+                            </Frame.BackgroundColor>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding parent.PetTappedCommand, Mode=OneTime}" CommandParameter="{Binding Source={RelativeSource AncestorType={x:Type Frame}, AncestorLevel=1}}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Frame 
+                                Grid.Row="0" 
+                                Padding="0" 
+                                CornerRadius="8">
+                                    <Image
+                                    Aspect="AspectFill" 
+                                    Source="{Binding ImageBase64, Converter={StaticResource ImageConverter}}"/>
+                                </Frame>
+                                <Label 
+                                Padding="5, 0" 
+                                Grid.Row="1" 
+                                Text="{Binding Nombre}" 
+                                FontSize="Title"/>
+                                <Label x:Name="ageLabel"
+                                    IsVisible="True"
+                                    Padding="5, 0" 
+                                    Grid.Row="2"
+                                    Text="{Binding FechaNac, Converter={StaticResource DateConverter}}"
+                                    FontSize="Subtitle"/>
+                                <FlexLayout Direction="Row" x:Name="buttonStack" Grid.Row="2" IsVisible="False">
+                                    <Button BackgroundColor="Purple" Command="{Binding parent.EditCommand}" CommandParameter="{Binding ID}" TextColor="White" Text="Editar"/>
+                                    <Button BackgroundColor="Purple" Command="{Binding parent.DeleteCommand}" CommandParameter="{Binding ID}" TextColor="White" Text="Borrar"/>
+                                </FlexLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

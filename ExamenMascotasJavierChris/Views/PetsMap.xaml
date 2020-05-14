@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:renders="clr-namespace:ExamenMascotasJavierChris.Renders"
+             x:Class="ExamenMascotasJavierChris.Views.PetsMap">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--maps:Map
+                x:Name="MapTrip"
+                Grid.RowSpan="3"/-->
+            <renders:CustomMap
+                x:Name="MapPet"
+                Grid.Row="0"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
